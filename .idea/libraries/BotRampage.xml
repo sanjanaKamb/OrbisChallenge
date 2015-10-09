@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="BotRampage">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Java Library/BotRampage.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/Java Library/BotRampage.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
