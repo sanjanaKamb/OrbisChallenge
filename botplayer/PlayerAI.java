@@ -25,6 +25,95 @@ public class PlayerAI extends ClientAI {
 		//Write your initialization here
 	}
 
+	
+
+	void findShortestPath(Cell parent,int x, int y, int destX, int destY){
+
+		System.out.println("Enter find shortest path : " + x + "," + y + "    " + destX + "," + destY + "    height,width:" + height + "," + width);
+		if(parent == null)
+			System.out.println("Parent is NULL");
+		else
+			System.out.println("Parent:" + parent.x +","+parent.y);
+		try {
+			if (y+1 > height-1) {
+				//System.out.println("going down");
+				if(!gameboard.isWallAtTile(x, 0)){
+					//System.out.println("going down2");
+					Cell c = createCell(x, 0, destX, destY);
+					checkadjacent(c, parent);
+					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
+				}
+			}else{
+				//System.out.println("going down3");
+				if(!gameboard.isWallAtTile(x, y + 1)){
+					//System.out.println("going down4");
+					Cell c = createCell(x, y + 1, destX, destY);
+					checkadjacent(c, parent);
+					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
+				}
+			}
+
+			if (y-1 < 0) {
+				//System.out.println("going up");
+				if(!gameboard.isWallAtTile(x, height-1)){
+					//System.out.println("going up2");
+					Cell c = createCell(x, height - 1,destX, destY);
+					checkadjacent(c, parent);
+					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
+				}
+			}else{
+				//System.out.println("going up3");
+				if(!gameboard.isWallAtTile(x, y - 1)){
+					//System.out.println("going up4");
+					Cell c = createCell(x, y - 1, destX, destY);
+					checkadjacent(c, parent);
+					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
+				}
+			}
+
+			if (x+1 > width-1 ) {
+				//System.out.println("going right");
+				if(!gameboard.isWallAtTile(0, y)){
+					//System.out.println("going right2");
+					Cell c = createCell(0, y, destX, destY);
+					checkadjacent(c, parent);
+					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
+				}
+			}else{
+				//System.out.println("going right3");
+				if(!gameboard.isWallAtTile(x+1, y)){
+					//System.out.println("going right4");
+					Cell c = createCell(x + 1, y, destX, destY);
+					checkadjacent(c, parent);
+					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
+				}
+			}
+
+			if (x-1 <0) {
+				//System.out.println("going left");
+				if(!gameboard.isWallAtTile(width-1, y)){
+					//System.out.println("going left2");
+					Cell c = createCell(width - 1, y, destX, destY);
+					checkadjacent(c, parent);
+					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
+				}
+			} else {
+				//System.out.println("going left3");
+				if (!gameboard.isWallAtTile(x-1, y)){
+					//System.out.println("going left4");
+					Cell c = createCell(x-1,y, destX,destY);
+					checkadjacent(c, parent);
+					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
+				}
+			}
+
+		}catch(MapOutOfBoundsException e){
+			System.out.println("map out of bound exception");
+		}
+
+	}
+
+
 	@Override
 	public Move getMove(Gameboard gameboard, Opponent opponent, Player player) throws NoItemException, MapOutOfBoundsException {
 		this.gameboard = gameboard;
@@ -228,93 +317,6 @@ public class PlayerAI extends ClientAI {
 		return Move.FORWARD;
 
 
-
-	}
-
-
-	void findShortestPath(Cell parent,int x, int y, int destX, int destY){
-
-		System.out.println("Enter find shortest path : " + x + "," + y + "    " + destX + "," + destY + "    height,width:" + height + "," + width);
-		if(parent == null)
-			System.out.println("Parent is NULL");
-		else
-			System.out.println("Parent:" + parent.x +","+parent.y);
-		try {
-			if (y+1 > height-1) {
-				//System.out.println("going down");
-				if(!gameboard.isWallAtTile(x, 0)){
-					//System.out.println("going down2");
-					Cell c = createCell(x, 0, destX, destY);
-					checkadjacent(c, parent);
-					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
-				}
-			}else{
-				//System.out.println("going down3");
-				if(!gameboard.isWallAtTile(x, y + 1)){
-					//System.out.println("going down4");
-					Cell c = createCell(x, y + 1, destX, destY);
-					checkadjacent(c, parent);
-					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
-				}
-			}
-
-			if (y-1 < 0) {
-				//System.out.println("going up");
-				if(!gameboard.isWallAtTile(x, height-1)){
-					//System.out.println("going up2");
-					Cell c = createCell(x, height - 1,destX, destY);
-					checkadjacent(c, parent);
-					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
-				}
-			}else{
-				//System.out.println("going up3");
-				if(!gameboard.isWallAtTile(x, y - 1)){
-					//System.out.println("going up4");
-					Cell c = createCell(x, y - 1, destX, destY);
-					checkadjacent(c, parent);
-					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
-				}
-			}
-
-			if (x+1 > width-1 ) {
-				//System.out.println("going right");
-				if(!gameboard.isWallAtTile(0, y)){
-					//System.out.println("going right2");
-					Cell c = createCell(0, y, destX, destY);
-					checkadjacent(c, parent);
-					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
-				}
-			}else{
-				//System.out.println("going right3");
-				if(!gameboard.isWallAtTile(x+1, y)){
-					//System.out.println("going right4");
-					Cell c = createCell(x + 1, y, destX, destY);
-					checkadjacent(c, parent);
-					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
-				}
-			}
-
-			if (x-1 <0) {
-				//System.out.println("going left");
-				if(!gameboard.isWallAtTile(width-1, y)){
-					//System.out.println("going left2");
-					Cell c = createCell(width - 1, y, destX, destY);
-					checkadjacent(c, parent);
-					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
-				}
-			} else {
-				//System.out.println("going left3");
-				if (!gameboard.isWallAtTile(x-1, y)){
-					//System.out.println("going left4");
-					Cell c = createCell(x-1,y, destX,destY);
-					checkadjacent(c, parent);
-					System.out.println("F : "+c.F+"  G: "+c.G+"   H: "+c.H);
-				}
-			}
-
-		}catch(MapOutOfBoundsException e){
-			System.out.println("map out of bound exception");
-		}
 
 	}
 
